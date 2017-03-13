@@ -42,7 +42,7 @@ controller.on('bot_channel_join', function (bot, message) {
 controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
   var person = message.match[1]; //match[1] is the (.*) group. match[0] is the entire group (open the (.*) doors).
   if (person === 'iambenwhite') {
-    return bot.reply(message, ' is working from home right now.');
+    return bot.reply(message, person +' is working from home right now.');
   }
   return bot.reply(message, 'Okay');
 });
