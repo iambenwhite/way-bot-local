@@ -26,21 +26,6 @@ if (token) {
   require('beepboop-botkit').start(controller, { debug: true })
 }
 
-//-----------------------
-
-// set up a botkit app to expose oauth and webhook endpoints
-controller.setupWebserver(process.env.port,function(err,webserver) {
-
-  // set up web endpoints for oauth, receiving webhooks, etc.
-  controller
-    .createHomepageEndpoint(controller.webserver)
-    .createOauthEndpoints(controller.webserver,function(err,req,res) { ... })
-    .createWebhookEndpoints(controller.webserver);
-
-});
-
-//-----------------------
-
 controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!")
 })
@@ -49,29 +34,6 @@ controller.hears(['where am I', 'way'], ['ambient', 'direct_message','direct_men
   bot.reply(message, 'Hi, I am here, do not panic.')
 })
 
-controller.hears('interactive', 'direct_message', function(bot, message) {
-
-    bot.reply(message, {
-        attachments:[
-            {
-                title: 'Do you want to interact with my buttons?',
-                callback_id: '123',
-                attachment_type: 'default',
-                actions: [
-                    {
-                        "name":"yes",
-                        "text": "Yes",
-                        "value": "yes",
-                        "type": "button",
-                    },
-                    {
-                        "name":"no",
-                        "text": "No",
-                        "value": "no",
-                        "type": "button",
-                    }
-                ]
-            }
-        ]
-    });
+controller.on('message_received', function(bot, message) {
+    bot.reply(message, 'Er, I heard... something!');
 });
