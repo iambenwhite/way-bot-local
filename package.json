@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "beepboop-botkit": "^1.4.0",
-    "botkit": "^0.1.2"
+    "botkit": "^0.1.2",
+    "jfs": "^0.2.6"
   }
 }
