@@ -1,0 +1,13 @@
+{
+  "name": "way-bot-local",
+  "version": "1.0.0",
+  "description": "A where are you bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "beepboop-botkit": "^1.4.0",
+    "botkit": "^0.1.2"
+  }
+}
