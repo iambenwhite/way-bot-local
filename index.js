@@ -87,7 +87,7 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
       }
   );
 
-  var sql = mysql.format('SELECT * from users WHERE username =? WHERE status =?', [user, status]);
+  var sql = mysql.format('SELECT users WHERE username =? SET status =?', [user, status]);
 
 
   connection.query(sql, function(err, result, fields) {
