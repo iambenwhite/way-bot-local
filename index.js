@@ -58,12 +58,10 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
   connection.query('SELECT * from users WHERE username = "iambenwhite"', function(err, result, fields) {
   if (!err)
   {
-
-
     for (var i in result) {
             var user = result[i];
-            console.log(user.username +': '+ user.status);
-            bot.reply(message, user.username + user.status);
+            console.log(user.username + ' - ' + user.first_name ' ' + user.last_name + ' : ' + user.status);
+            bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
         }
   }
   else
