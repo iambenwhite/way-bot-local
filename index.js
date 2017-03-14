@@ -57,7 +57,7 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
   if (!err)
   {
     console.log('The solution is: ', rows);
-    bot.reply(message, 'iambenwhite' + rows);
+    //bot.reply(message, 'iambenwhite' + rows);
   }
   else
     console.log('Error while performing Query.');
