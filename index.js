@@ -122,7 +122,7 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
 
   // connection.connect();
 
-  var sql = mysql.format('SELECT * from users WHERE slack_user =?', [current]);
+  sql = mysql.format('SELECT * from users WHERE slack_user =?', [current]);
 
   connection.query(sql, function(err, result, fields) {
   if (!err)
@@ -130,7 +130,7 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
       var user = result;
       console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
       bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
-    }
+    } 
   else
     console.log('Error while performing Query.');
   });
