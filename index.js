@@ -36,38 +36,38 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
   return bot.reply(message, person +' is working from home right now.');
 });
 
-dbconnect();
+// dbconnect();
 
-function dbconnect(){
+// function dbconnect(){
 
-  var mysql = require('mysql');
+//   var mysql = require('mysql');
    
-  var connection = mysql.createConnection(
-      {
-        host     : '69.90.163.150',
-        user     : 'thewh134_super',
-        password : 'Super01',
-        database : 'thewh134_waybot',
-      }
-  );
+//   var connection = mysql.createConnection(
+//       {
+//         host     : '69.90.163.150',
+//         user     : 'thewh134_super',
+//         password : 'Super01',
+//         database : 'thewh134_waybot',
+//       }
+//   );
 
-  connection.connect();
+//   connection.connect();
 
 
-  var queryString = 'SELECT * FROM iambenwhite';
+//   var queryString = 'SELECT * FROM iambenwhite';
    
-  mysqlStorage.query(queryString, function(err, rows, fields) {
-      if (err) throw err;
+//   mysqlStorage.query(queryString, function(err, rows, fields) {
+//       if (err) throw err;
    
-      for (var i in rows) {
-          var userStatus = rows[i].status;
-          bot.reply(message, person + userStatus);
+//       for (var i in rows) {
+//           var userStatus = rows[i].status;
+//           bot.reply(message, person + userStatus);
 
-      }
+//       }
 
 
-  });
-}
+//   });
+// }
 
 
 
