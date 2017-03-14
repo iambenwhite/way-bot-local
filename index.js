@@ -74,6 +74,7 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
 
   var user = message.user;
   var status = message.match[1];
+  console.log(user);
 
 
   var mysql = require('mysql');  
