@@ -95,17 +95,47 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
   connection.query(sql, function(err, result, fields) {
     if (!err)
     {
-      var user = result;
-      console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
+      //var user = result;
+      //console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
       //bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
-      //console.log(result);
+      console.log('updated');
       //bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + result + ' today.');
     }
     else
       console.log('Error while performing Query.');
     });
 
-  connection.end();  
+  // connection.end();  
+
+  // //---check
+
+  // var mysql = require('mysql');  
+
+  // var connection = mysql.createConnection(
+  //     {
+  //       host     : '69.90.163.150',
+  //       user     : 'thewh134_super',
+  //       password : 'Super01',
+  //       database : 'thewh134_waybot',
+  //     }
+  // );
+
+  // connection.connect();
+
+  var sql = mysql.format('SELECT * from users WHERE slack_user =?', [current]);
+
+  connection.query(sql, function(err, result, fields) {
+  if (!err)
+  {
+      var user = result;
+      console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
+      bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
+    }
+  else
+    console.log('Error while performing Query.');
+  });
+
+  connection.end();
 
 });
 
