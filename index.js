@@ -67,7 +67,7 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
 
   connection.end();
 
-}
+});
 
 
   // var queryString = 'SELECT * FROM iambenwhite';
