@@ -1,3 +1,4 @@
+//--- initilise bot
 var Botkit = require('botkit')
 
 var token = process.env.SLACK_TOKEN
@@ -5,7 +6,8 @@ var token = process.env.SLACK_TOKEN
 var controller = Botkit.slackbot({
   // reconnect to Slack RTM when connection goes bad
   retry: Infinity,
-  debug: false
+  debug: false,
+  json_file_store: 'path_to_json_database'
 })
 
 // Assume single team mode if we have a SLACK_TOKEN
@@ -26,29 +28,20 @@ if (token) {
   require('beepboop-botkit').start(controller, { debug: true })
 }
 
+//initialise storage
+// var controller = Botkit.slackbot({
+//   json_file_store: 'path_to_json_database'
+// });
+
+
+
 controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!")
 })
 
-// controller.hears(['where am I', 'way'], ['ambient', 'direct_message','direct_mention','mention'], function (bot, message) {
-//   bot.reply(message, 'Hi, I am here, do not panic.')
-// })
-
-controller.on('message_received', function(bot, message) {
-    bot.reply(message, 'Er,I heard... something!');
+controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
+  var person = message.match[1]; //match[1] is the (.*) group. match[0] is the entire group (open the (.*) doors).
+  controller.storage.users.save({id: message.user, user:person}, function(err) { ... });
+  var returnUser = controller.storage.users.get(id, function(err, user_data) {...});
+  return bot.reply(message, returnUser +' is working from home right now.');
 });
-
-// controller.hears('where are you (.*)',['message_received'],function(bot,message) {
-// //controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
-//   var person = message.match[1]; //match[1] is the (.*) group. match[0] is the entire group (open the (.*) doors).
-//   if (person === 'iambenwhite') {
-//     return bot.reply(message, person +' is working from home right now.');
-//   }
-//   return bot.reply(message, 'Okay');
-// });
-
-//controller.hears('where are you (.*)',['message_received'],function(bot,message) {
-// controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
-//   var person = message.match[1]; //match[1] is the (.*) group. match[0] is the entire group (open the (.*) doors).
-//   return bot.reply(message, person +' is working from home right now.');
-// });
