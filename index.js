@@ -36,12 +36,12 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
   return bot.reply(message, person +' is working from home right now.');
 });
 
-dbconnect();
+//dbconnect();
 
-function dbconnect(){
+//function dbconnect(){
 
   var mysql = require('mysql');  
-   
+
   var connection = mysql.createConnection(
       {
         host     : '69.90.163.150',
@@ -52,6 +52,18 @@ function dbconnect(){
   );
 
   connection.connect();
+
+  connection.query('SELECT * from iambenwhite', function(err, rows, fields) {
+  if (!err)
+  {
+    console.log('The solution is: ', rows);
+    bot.reply(message, 'iambenwhite' + rows);
+  }
+  else
+    console.log('Error while performing Query.');
+  });
+
+  connection.end();
 
 
   // var queryString = 'SELECT * FROM iambenwhite';
@@ -67,7 +79,7 @@ function dbconnect(){
 
 
   // });
-}
+//}
 
 
 
