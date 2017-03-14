@@ -72,7 +72,8 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
 
 controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
-  var user = message.user;
+  //var user = message.user;
+  var user = users.info;
   var status = message.match[1];
   console.log(user);
 
@@ -94,20 +95,15 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
   connection.query(sql, function(err, result, fields) {
     if (!err)
     {
-      
-    }
-    else
-      console.log('Error while performing Query.');
-    });
-
-    if(result)
-    {
       for (var i in result) {
               var user = result[i];
               console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
               bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
           }
     }
+    else
+      console.log('Error while performing Query.');
+    });
 
   connection.end();  
 
