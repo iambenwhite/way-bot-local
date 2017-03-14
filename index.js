@@ -31,14 +31,16 @@ controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!")
 })
 
-controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
-  var person = message.match[1]; //match[1] is the (.*) group. match[0] is the entire group (open the (.*) doors).
-  return bot.reply(message, person +' is working from home right now.');
-});
+// controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
+//   var person = message.match[1]; //match[1] is the (.*) group. match[0] is the entire group (open the (.*) doors).
+//   return bot.reply(message, person +' is working from home right now.');
+// });
 
 //dbconnect();
 
 //function dbconnect(){
+
+controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
   var mysql = require('mysql');  
 
@@ -57,13 +59,15 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
   if (!err)
   {
     console.log('The solution is: ', rows);
-    //bot.reply(message, 'iambenwhite' + rows);
+    bot.reply(message, 'iambenwhite' + rows);
   }
   else
     console.log('Error while performing Query.');
   });
 
   connection.end();
+
+}
 
 
   // var queryString = 'SELECT * FROM iambenwhite';
