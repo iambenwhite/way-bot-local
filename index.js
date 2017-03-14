@@ -7,7 +7,7 @@ var controller = Botkit.slackbot({
   // reconnect to Slack RTM when connection goes bad
   retry: Infinity,
   debug: false,
-  json_file_store: 'path_to_json_database'
+  //json_file_store: 'path_to_json_database'
 })
 
 // Assume single team mode if we have a SLACK_TOKEN
