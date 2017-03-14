@@ -1,9 +1,9 @@
 //--- initilise bot
-var Botkit = require('botkit') 
-    // var mysqlStorage = require('botkit-storage-mysql')({host: '69.90.163.150', user: 'thewh134_super', password: 'Super01', database: 'thewh134_waybot'});,
-    //     controller = Botkit.slackbot({
-    //         storage: mysqlStorage
-    //     });
+var Botkit = require('botkit'),
+    var mysqlStorage = require('botkit-storage-mysql')({host: '69.90.163.150', user: 'thewh134_super', password: 'Super01', database: 'thewh134_waybot'});,
+        controller = Botkit.slackbot({
+            storage: mysqlStorage
+        });
 
 var token = process.env.SLACK_TOKEN
 
