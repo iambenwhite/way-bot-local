@@ -1,17 +1,12 @@
 //--- initilise bot
-var Botkit = require('botkit'),
-    var mysqlStorage = require('botkit-storage-mysql')({host: '69.90.163.150', user: 'thewh134_super', password: 'Super01', database: 'thewh134_waybot'});,
-        controller = Botkit.slackbot({
-            storage: mysqlStorage
-        });
+var Botkit = require('botkit')
 
 var token = process.env.SLACK_TOKEN
 
 var controller = Botkit.slackbot({
   // reconnect to Slack RTM when connection goes bad
   retry: Infinity,
-  debug: false,
-  json_file_store: 'path_to_json_database'
+  debug: false
 })
 
 // Assume single team mode if we have a SLACK_TOKEN
@@ -32,13 +27,6 @@ if (token) {
   require('beepboop-botkit').start(controller, { debug: true })
 }
 
-//initialise storage
-// var controller = Botkit.slackbot({
-//   json_file_store: 'path_to_json_database'
-// });
-
-
-
 controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!")
 })
@@ -48,20 +36,38 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
   return bot.reply(message, person +' is working from home right now.');
 });
 
+dbconnect();
 
-// var queryString = 'SELECT * FROM iambenwhite';
- 
-// mysqlStorage.query(queryString, function(err, rows, fields) {
-//     if (err) throw err;
- 
-//     for (var i in rows) {
-//         var userStatus = rows[i].status;
-//         bot.reply(message, person + userStatus);
+function dbconnect(){
 
-//     }
+  var mysql = require('mysql');
+   
+  var connection = mysql.createConnection(
+      {
+        host     : '69.90.163.150',
+        user     : 'thewh134_super',
+        password : 'Super01',
+        database : 'thewh134_waybot',
+      }
+  );
+
+  connection.connect();
 
 
-// });
+  var queryString = 'SELECT * FROM iambenwhite';
+   
+  mysqlStorage.query(queryString, function(err, rows, fields) {
+      if (err) throw err;
+   
+      for (var i in rows) {
+          var userStatus = rows[i].status;
+          bot.reply(message, person + userStatus);
+
+      }
+
+
+  });
+}
 
 
 
