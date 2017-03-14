@@ -88,7 +88,7 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
       }
   );
 
-  var sql = mysql.format('UPDATE users SET status =? WHERE username =?', [status, user]);
+  var sql = mysql.format('UPDATE users SET status =? WHERE slack_user =?', [status, user]);
 
 
   connection.query(sql, function(err, result, fields) {
