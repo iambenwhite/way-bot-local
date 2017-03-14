@@ -72,14 +72,9 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
 
 controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
-  bot.api.users.info({user: message.user}, (error, response) => {
-        let {name, real_name} = response.user;
-        console.log(name, real_name);
-    })
-
-  //var user = message.user;
+  var user = message.user;
   var status = message.match[1];
-  //console.log(user);
+  console.log(user);
 
 
   var mysql = require('mysql');  
