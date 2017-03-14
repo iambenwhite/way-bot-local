@@ -70,42 +70,42 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
 
 //i am here -------------------------
 
-controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
+// controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
-  var user = message.user;
-  var status = message.match[1];
-  console.log(user);
-
-
-  var mysql = require('mysql');  
-
-  var connection = mysql.createConnection(
-      {
-        host     : '69.90.163.150',
-        user     : 'thewh134_super',
-        password : 'Super01',
-        database : 'thewh134_waybot',
-      }
-  );
-
-  var sql = mysql.format('SELECT * from users WHERE username =? SET status =?', [user, status]);
+//   var user = message.user;
+//   var status = message.match[1];
+//   console.log(user);
 
 
-  connection.query(sql, function(err, result, fields) {
-    if (!err)
-    {
-      for (var i in result) {
-              var user = result[i];
-              console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
-              bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
-          }
-    }
-    else
-      console.log('Error while performing Query.');
-    });
+//   var mysql = require('mysql');  
 
-  connection.end();  
+//   var connection = mysql.createConnection(
+//       {
+//         host     : '69.90.163.150',
+//         user     : 'thewh134_super',
+//         password : 'Super01',
+//         database : 'thewh134_waybot',
+//       }
+//   );
 
-});
+//   var sql = mysql.format('SELECT * from users WHERE username =? SET status =?', [user, status]);
+
+
+//   connection.query(sql, function(err, result, fields) {
+//     if (!err)
+//     {
+//       for (var i in result) {
+//               var user = result[i];
+//               console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
+//               bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
+//           }
+//     }
+//     else
+//       console.log('Error while performing Query.');
+//     });
+
+//   connection.end();  
+
+// });
 
 
