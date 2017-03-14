@@ -55,7 +55,7 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
     for (var i in result) {
             var user = result[i];
             console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
-            bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
+            bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + 'today.');
         }
   }
   else
@@ -72,10 +72,10 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
 
 controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
-  var user = message.user;
+  var current = message.user;
   //var user = users.info;
   var status = message.match[1];
-  console.log(user);
+  console.log(current);
 
 
   var mysql = require('mysql');  
@@ -89,7 +89,7 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
       }
   );
 
-  var sql = mysql.format('UPDATE users SET status =? WHERE slack_user =?', [status, user]);
+  var sql = mysql.format('UPDATE users SET status =? WHERE slack_user =?', [status, current]);
 
 
   connection.query(sql, function(err, result, fields) {
