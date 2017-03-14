@@ -1,5 +1,9 @@
 //--- initilise bot
-var Botkit = require('botkit')
+var Botkit = require('botkit'), 
+    var mysqlStorage = require('botkit-storage-mysql')({host: '69.90.163.150', user: 'thewh134_super', password: 'Super01', database: 'thewh134_waybot'});,
+        controller = Botkit.slackbot({
+            storage: mysqlStorage
+        });
 
 var token = process.env.SLACK_TOKEN
 
@@ -41,7 +45,24 @@ controller.on('bot_channel_join', function (bot, message) {
 
 controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
   var person = message.match[1]; //match[1] is the (.*) group. match[0] is the entire group (open the (.*) doors).
-  controller.storage.users.save({id: message.user, user:person}, function(err) { });
-  var returnUser = controller.storage.users.get(id, function(err, user_data) {});
-  return bot.reply(message, returnUser +' is working from home right now.');
+  return bot.reply(message, person +' is working from home right now.');
 });
+
+
+var queryString = 'SELECT * FROM iambenwhite';
+ 
+mysqlStorage.query(queryString, function(err, rows, fields) {
+    if (err) throw err;
+ 
+    for (var i in rows) {
+        var userStatus = rows[i].status;
+        bot.reply(message, person + userStatus);
+
+    }
+
+
+});
+
+
+
+
