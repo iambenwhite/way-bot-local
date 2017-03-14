@@ -55,7 +55,7 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
     for (var i in result) {
             var user = result[i];
             console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
-            bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + 'today.');
+            bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
         }
   }
   else
@@ -95,11 +95,11 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
   connection.query(sql, function(err, result, fields) {
     if (!err)
     {
-      for (var i in result) {
-              var user = result[i];
+      
+              var user = result;
               console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
               bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
-          }
+      
     }
     else
       console.log('Error while performing Query.');
