@@ -72,8 +72,8 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
 
 controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
-  //var user = message.user;
-  var user = users.info;
+  var user = message.user;
+  //var user = users.info;
   var status = message.match[1];
   console.log(user);
 
