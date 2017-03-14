@@ -95,11 +95,11 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
   connection.query(sql, function(err, result, fields) {
     if (!err)
     {
-      
-              var user = result;
-              console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
-              bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
-      
+      //var user = result;
+      //console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
+      //bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
+      console.log(result);
+      bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + result + ' today.');
     }
     else
       console.log('Error while performing Query.');
