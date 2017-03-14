@@ -22,3 +22,39 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
   var person = message.match[1]; //match[1] is the (.*) group. match[0] is the entire group (open the (.*) doors).
   return bot.reply(message, person +' is working from home right now.');
 });
+
+connection.query('SELECT * FROM `iambenwhite` WHERE `author` = "David"', function (error, results, fields) {
+  // error will be an Error if one occurred during the query 
+  // results will contain the results of the query 
+  // fields will contain information about the returned results fields (if any) 
+});
+
+    var mysqlStorage = require('botkit-storage-mysql')({host: '69.90.163.150', user: 'thewh134_super', password: 'Super01', database: 'thewh134_waybot'});,
+        controller = Botkit.slackbot({
+            storage: mysqlStorage
+        });
+
+
+
+ connection.query('SELECT * from iambenwhite', function(err, rows, fields) {
+   if (!err)
+     console.log('The solution is: ', rows);
+   else
+     console.log('Error while performing Query.');
+ });
+
+
+  // var queryString = 'SELECT * FROM iambenwhite';
+   
+  // mysqlStorage.query(queryString, function(err, rows, fields) {
+  //     if (err) throw err;
+   
+  //     for (var i in rows) {
+  //         var userStatus = rows[i].status;
+  //         bot.reply(message, person + userStatus);
+
+  //     }
+
+
+  // });
+//}

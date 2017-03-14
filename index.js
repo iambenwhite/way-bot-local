@@ -70,20 +70,6 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
 });
 
 
-  // var queryString = 'SELECT * FROM iambenwhite';
-   
-  // mysqlStorage.query(queryString, function(err, rows, fields) {
-  //     if (err) throw err;
-   
-  //     for (var i in rows) {
-  //         var userStatus = rows[i].status;
-  //         bot.reply(message, person + userStatus);
-
-  //     }
-
-
-  // });
-//}
 
 
 
