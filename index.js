@@ -42,6 +42,8 @@ controller.on('bot_channel_join', function (bot, message) {
 
 controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
+  var person = message.match[1];
+
   var mysql = require('mysql');  
 
   var connection = mysql.createConnection(
@@ -55,7 +57,10 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
 
   connection.connect();
 
-  connection.query('SELECT * from users WHERE username = "iambenwhite"', function(err, result, fields) {
+  //var sql = mysql.format("SELECT url FROM Sonic_url WHERE name=?", [person]);
+  var sql = mysql.format("SELECT * from users WHERE username =?", [person]);
+
+  connection.query(sql, function(err, result, fields) {
   if (!err)
   {
     for (var i in result) {

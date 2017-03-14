@@ -58,3 +58,21 @@ connection.query('SELECT * FROM `iambenwhite` WHERE `author` = "David"', functio
 
   // });
 //}
+
+//-----
+
+this works
+connection.query('SELECT * from users WHERE username = "iambenwhite"', function(err, result, fields) {
+  if (!err)
+  {
+    for (var i in result) {
+            var user = result[i];
+            console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
+            bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
+        }
+  }
+  else
+    console.log('Error while performing Query.');
+  });
+
+  connection.end();
