@@ -30,7 +30,7 @@ if (token) {
 
 //where are you -------------------------
 
-controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
+controller.hears(['where are you @(.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
   var person = message.match[1];
 
