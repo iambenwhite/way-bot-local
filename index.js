@@ -6,7 +6,7 @@ var token = process.env.SLACK_TOKEN
 var controller = Botkit.slackbot({
   // reconnect to Slack RTM when connection goes bad
   retry: Infinity,
-  debug: false,
+  debug: false
   //json_file_store: 'path_to_json_database'
 })
 
