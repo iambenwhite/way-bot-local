@@ -55,11 +55,16 @@ controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_men
 
   connection.connect();
 
-  connection.query('SELECT status from users WHERE username = "iambenwhite"', function(err, rows, fields) {
+  connection.query('SELECT * from users WHERE username = "iambenwhite"', function(err, result, fields) {
   if (!err)
   {
-    console.log('The solution is: ', fields);
-    bot.reply(message, 'iambenwhite' + fields);
+
+
+    for (var i in result) {
+            var user = result[i];
+            console.log(user.username +': '+ user.status);
+            bot.reply(message, user.username + user.status);
+        }
   }
   else
     console.log('Error while performing Query.');
