@@ -41,7 +41,7 @@ controller.on('bot_channel_join', function (bot, message) {
 
 controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
   var person = message.match[1]; //match[1] is the (.*) group. match[0] is the entire group (open the (.*) doors).
-  //controller.storage.users.save({id: message.user, user:person}, function(err) { ... });
+  controller.storage.users.save({id: message.user, user:person}, function(err) { ... });
   //var returnUser = controller.storage.users.get(id, function(err, user_data) {...});
   return bot.reply(message, person +' is working from home right now.');
 });
