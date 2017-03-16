@@ -67,7 +67,7 @@ controller.hears(['help'],['ambient', 'direct_message','direct_mention','mention
           'color': '#7CD197'
         }
       ],
-      'icon_url': ''
+      'icon_url': 'bot-icon.png'
       }
 
     bot.reply(message, reply_with_attachments);
