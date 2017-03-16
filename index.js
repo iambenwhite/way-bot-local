@@ -6,13 +6,14 @@ var token = process.env.SLACK_TOKEN
 var controller = Botkit.slackbot({
   // reconnect to Slack RTM when connection goes bad
   retry: Infinity,
-  debug: false
+  debug: false,
+  require_delivery: true,
 })
 
 // Assume single team mode if we have a SLACK_TOKEN
 if (token) {
   console.log('Starting in single-team mode')
-  controller.spawn({
+  var bot = controller.spawn({
     token: token
   }).startRTM(function (err, bot, payload) {
     if (err) {
@@ -30,7 +31,7 @@ if (token) {
 
 //where are you -------------------------
 
-controller.hears(['where are you @(.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
+controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
   var person = message.match[1];
 
@@ -68,15 +69,38 @@ controller.hears(['where are you @(.*)'],['ambient', 'direct_message','direct_me
 
 
 
-//i am here -------------------------
+//i am status -------------------------
 
 controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
-  var current = message.user;
-  //var user = users.info;
+  var currentUser = message.user;
   var status = message.match[1];
-  console.log(current);
 
+  // Call getUser - query slack api
+  getUser(currentUser, status, function(gotUsername){
+    var username = gotUsername;
+
+    setStatus(username, status, function(gotUserData){
+      var userData = gotUserData;
+      bot.reply(message, 'Thanks for letting me know - you are ' + userData.status);
+    });
+  });
+});
+
+
+// get username from slack api -------------------------
+function getUser(param1, param2, callback) {
+
+    bot.api.users.info({user: param1}, function(err, result){
+      callback(result.user.name, param2);
+    }); 
+}
+
+
+function setStatus(param1, param2, callback) {
+
+  var username = param1;
+  var status = param2;
 
   var mysql = require('mysql');  
 
@@ -89,40 +113,20 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
       }
   );
 
-  var sql = mysql.format('UPDATE users SET status =? WHERE slack_user =?', [status, current]);
+  connection.connect();
 
+  var sql = mysql.format('UPDATE users SET status =? WHERE username =?', [status, username]);
 
   connection.query(sql, function(err, result, fields) {
     if (!err)
     {
-      //var user = result;
-      //console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
-      //bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
       console.log('updated');
-      //bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + result + ' today.');
     }
     else
       console.log('Error while performing Query.');
     });
 
-  // connection.end();  
-
-  // //---check
-
-  // var mysql = require('mysql');  
-
-  // var connection = mysql.createConnection(
-  //     {
-  //       host     : '69.90.163.150',
-  //       user     : 'thewh134_super',
-  //       password : 'Super01',
-  //       database : 'thewh134_waybot',
-  //     }
-  // );
-
-  // connection.connect();
-
-  sql = mysql.format('SELECT * from users WHERE slack_user =?', [current]);
+  sql = mysql.format('SELECT * from users WHERE username =?', [username]);
 
   connection.query(sql, function(err, result, fields) {
   if (!err)
@@ -130,7 +134,8 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
       for (var i in result) {
         var user = result[i];
         console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
-        bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
+        //bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
+        callback(user);
       }
     } 
   else
@@ -139,6 +144,6 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
 
   connection.end();
 
-});
+}
 
 
