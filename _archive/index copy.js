@@ -47,34 +47,6 @@ controller.hears(['where are you <@(.*)>'],['ambient', 'direct_message','direct_
 });
 
 
-//help commands -------------------------
-controller.hears(['help'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
-
-  var reply_with_attachments = {
-      'username': 'How to use waybot - (w)here (a)re (y)ou?' ,
-      'text': '',
-      'attachments': [
-        {
-          'fallback': 'Update your location',
-          'title': 'Update your location:',
-          'text': '"i am" (followed by where you are - WFH, in the office etc)',
-          'color': '#7CD197'
-        },
-        {
-          'fallback': 'Update your location',
-          'title': 'Find out where people are:',
-          'text': '"where are you" (followed by a user name eg @waybot)',
-          'color': '#7CD197'
-        }
-      ],
-      'icon_url': ''
-      }
-
-    bot.reply(message, reply_with_attachments);
-});
-
-
-
 
 //i am status update -------------------------
 
@@ -188,8 +160,5 @@ function getStatus(param1, callback) {
 
   connection.end();
 }
-
-
-
 
 
