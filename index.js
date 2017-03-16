@@ -29,47 +29,26 @@ if (token) {
 }
 
 
-//where are you -------------------------
+//where are you query -------------------------
 
-controller.hears(['where are you (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
+controller.hears(['where are you <@(.*)>'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
-  var person = message.match[1];
+  var currentUser = message.match[1];
 
-  var mysql = require('mysql');  
+  getUser(currentUser, function(gotUsername){
+    var username = gotUsername;
 
-  var connection = mysql.createConnection(
-      {
-        host     : '69.90.163.150',
-        user     : 'thewh134_super',
-        password : 'Super01',
-        database : 'thewh134_waybot',
-      }
-  );
-
-  connection.connect();
-
-  var sql = mysql.format('SELECT * from users WHERE username =?', [person]);
-
-  connection.query(sql, function(err, result, fields) {
-  if (!err)
-  {
-    for (var i in result) {
-            var user = result[i];
-            console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
-            bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
-        }
-  }
-  else
-    console.log('Error while performing Query.');
+    getStatus(username, function(gotUserData){
+      var userData = gotUserData;
+      bot.reply(message, '<@'+userData.username+'> is ' + userData.status);
+    });
   });
-
-  connection.end();
 
 });
 
 
 
-//i am status -------------------------
+//i am status update -------------------------
 
 controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
@@ -77,7 +56,7 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
   var status = message.match[1];
 
   // Call getUser - query slack api
-  getUser(currentUser, status, function(gotUsername){
+  getUser(currentUser, function(gotUsername){
     var username = gotUsername;
 
     setStatus(username, status, function(gotUserData){
@@ -89,14 +68,15 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
 
 
 // get username from slack api -------------------------
-function getUser(param1, param2, callback) {
+function getUser(param1, callback) {
 
     bot.api.users.info({user: param1}, function(err, result){
-      callback(result.user.name, param2);
+      callback(result.user.name);
     }); 
 }
 
 
+// set user status in db -------------------------
 function setStatus(param1, param2, callback) {
 
   var username = param1;
@@ -133,8 +113,6 @@ function setStatus(param1, param2, callback) {
   {
       for (var i in result) {
         var user = result[i];
-        console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
-        //bot.reply(message, user.first_name + ' ' + user.last_name + ' is ' + user.status + ' today.');
         callback(user);
       }
     } 
@@ -144,6 +122,43 @@ function setStatus(param1, param2, callback) {
 
   connection.end();
 
+}
+
+
+// set user status from db -------------------------
+function getStatus(param1, callback) {
+
+  var username = param1;
+
+  var mysql = require('mysql');  
+
+  var connection = mysql.createConnection(
+      {
+        host     : '69.90.163.150',
+        user     : 'thewh134_super',
+        password : 'Super01',
+        database : 'thewh134_waybot',
+      }
+  );
+
+  connection.connect();
+
+  var sql = mysql.format('SELECT * from users WHERE username =?', [username]);
+
+  connection.query(sql, function(err, result, fields) {
+  if (!err)
+  {
+    for (var i in result) {
+            var user = result[i];
+            //console.log(user.username + ' - ' + user.first_name + ' ' + user.last_name + ' : ' + user.status);
+            callback(user);
+        }
+  }
+  else
+    console.log('Error while performing Query.');
+  });
+
+  connection.end();
 }
 
 
