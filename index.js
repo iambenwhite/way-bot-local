@@ -31,7 +31,7 @@ if (token) {
 
 //where are you query -------------------------
 
-controller.hears(['where are you <@(.*)>'],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
+controller.hears(['where are you <@(.*)>', 'where is <@(.*)>', "where's <@(.*)>"],['ambient', 'direct_message','direct_mention','mention'],function(bot,message) {
 
   var currentUser = message.match[1];
 
@@ -89,7 +89,7 @@ controller.hears(['i am (.*)'],['ambient', 'direct_message','direct_mention','me
 
     setStatus(username, status, function(gotUserData){
       var userData = gotUserData;
-      bot.reply(message, 'Thanks for letting me know - you are ' + userData.status);
+      bot.reply(message, 'Thanks for letting me know - <@'+userData.username+'> you are ' + userData.status);
     });
   });
 });
@@ -192,11 +192,13 @@ function getStatus(param1, callback) {
 // add new user to db
 // controller.on('team_join',function(bot, message) {
 
+//     console.log('user_joined: ' + message.user);
 //     //bot.reply(message, 'Welcome aboard!');
-//     bot.api.users.info({user: message,user}, function(err, result){
-//       //callback(result.user.name);
+//     bot.api.users.info({user: message.user}, function(err, result){
 //       console.log(result.user.name);
-//     }); 
+//    }); 
+
+//    console.log('user_joined: ' + message.user);
 
 //     bot.reply(message, 'Welcome aboard!');
 
