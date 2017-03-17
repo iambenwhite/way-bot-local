@@ -190,17 +190,17 @@ function getStatus(param1, callback) {
 }
 
 // add new user to db
-controller.on('team_join',function(bot, message) {
+// controller.on('team_join',function(bot, message) {
 
-    //bot.reply(message, 'Welcome aboard!');
-    bot.api.users.info({user: message,user}, function(err, result){
-      //callback(result.user.name);
-      console.log(result.user.name);
-    }); 
+//     //bot.reply(message, 'Welcome aboard!');
+//     bot.api.users.info({user: message,user}, function(err, result){
+//       //callback(result.user.name);
+//       console.log(result.user.name);
+//     }); 
 
-    bot.reply(message, 'Welcome aboard!');
+//     bot.reply(message, 'Welcome aboard!');
 
-});
+// });
 
 
 
