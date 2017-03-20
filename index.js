@@ -3,6 +3,9 @@ var Botkit = require('botkit')
 
 var token = process.env.SLACK_TOKEN
 
+// Beep Boop specifies the port you should listen on default to 8080 for local dev
+var PORT = process.env.PORT || 8080
+
 var controller = Botkit.slackbot({
   // reconnect to Slack RTM when connection goes bad
   retry: Infinity,
