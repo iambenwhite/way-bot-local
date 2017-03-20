@@ -1,6 +1,8 @@
 way-clearleft
-xoxb-154668065681-uXzOCRWttc2z69WyOPpgMnxn
-SLACK_TOKEN=xoxb-154668065681-uXzOCRWttc2z69WyOPpgMnxn npm start
+xoxb-154668065681-eYroJ3qMdkOdfyRS5oMZ8mAv
+SLACK_TOKEN=xoxb-154668065681-eYroJ3qMdkOdfyRS5oMZ8mAv npm start
+
+
 
 
 
