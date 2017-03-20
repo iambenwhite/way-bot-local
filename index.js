@@ -189,20 +189,59 @@ function getStatus(param1, callback) {
   connection.end();
 }
 
-// add new user to db
-// controller.on('team_join',function(bot, message) {
 
-//     console.log('user_joined: ' + message.user);
-//     //bot.reply(message, 'Welcome aboard!');
-//     bot.api.users.info({user: message.user}, function(err, result){
-//       console.log(result.user.name);
-//    }); 
+// // set up a botkit app to expose oauth and webhook endpoints
+// controller.setupWebserver(process.env.port,function(err,webserver) {
 
-//    console.log('user_joined: ' + message.user);
-
-//     bot.reply(message, 'Welcome aboard!');
+//   // set up web endpoints for oauth, receiving webhooks, etc.
+//   controller
+//     .createHomepageEndpoint(controller.webserver)
+//     .createOauthEndpoints(controller.webserver,function(err,req,res) { })
+//     .createWebhookEndpoints(controller.webserver);
 
 // });
+
+controller.setupWebserver(process.env.port,function(err,webserver) {
+  controller.createWebhookEndpoints(controller.webserver);
+
+  controller.createOauthEndpoints(controller.webserver,function(err,req,res) {
+    if (err) {
+      res.status(500).send('ERROR: ' + err);
+    } else {
+      res.send('Success!');
+    }
+  });
+});
+
+
+controller.hears('interactive', 'direct_message', function(bot, message) {
+
+  bot.reply(message, {
+    attachments:[
+      {
+        title: 'Do you want to interact with my buttons?',
+        callback_id: '123',
+        attachment_type: 'default',
+        actions: [
+           {
+              'name':'yes',
+              'text': 'Yes',
+              'value': 'yes',
+              'type': 'button',
+           },
+           {
+              'name':'no',
+              'text': 'No',
+              'value': 'no',
+              'type': 'button',
+           }
+        ]
+      }
+    ]
+  });
+
+});
+
 
 
 

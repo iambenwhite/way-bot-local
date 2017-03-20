@@ -213,6 +213,37 @@ io.sockets.on('connection', function(socket) {
 
 
 
+// add new user to db
+// controller.on('team_join',function(bot, message) {
+
+//     console.log('user_joined: ' + message.user);
+//     //bot.reply(message, 'Welcome aboard!');
+//     bot.api.users.info({user: message.user}, function(err, result){
+//       console.log(result.user.name);
+//    }); 
+
+//    console.log('user_joined: ' + message.user);
+
+//     bot.reply(message, 'Welcome aboard!');
+
+// });
+
+//add new user to db
+// controller.on('channel_joined', function(bot, message) {
+
+//     console.log('user_joined_channel: ' + message.user);
+//     //bot.reply(message, 'Welcome aboard!');
+//     // bot.api.users.info({user: message.user}, function(err, result){
+//     //   console.log('user_name: ' + result.user.name);
+//     // }); 
+
+//    //console.log('user_joined: ' + message.user);
+
+//     //bot.reply(message, 'Welcome aboard!');
+
+// });
+
+
 
 
 
